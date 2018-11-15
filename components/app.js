@@ -5,6 +5,7 @@ const App = () => {
   return (
     <div>
       <p className="title">Dummy React Component here!</p>
+      <p>Mic Check</p>
     </div>
   );
 };
