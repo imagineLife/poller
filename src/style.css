@@ -1,0 +1,12 @@
+@font-face{
+	font-family: Poly-Regular;
+	src: url('./Poly-Regular.otf') format('opentype');
+	font-weight: 400;
+	font-style:normal; 
+}
+
+.title{
+	color: steelblue;
+	background: url('./hf.png');
+	font-family: 'Poly-Regular';
+}

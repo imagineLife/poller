@@ -1,23 +1,34 @@
 {
-  "name": "poller",
+  "name": "wp-build",
   "version": "1.0.0",
-  "description": "polling with socket io",
-  "main": "index.js",
+  "description": "Step-By-Step Webpack Build",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/imagineLife/poller.git"
+    "url": "git+https://github.com/imagineLife/wp-build.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/imagineLife/poller/issues"
+    "url": "https://github.com/imagineLife/wp-build/issues"
   },
-  "homepage": "https://github.com/imagineLife/poller#readme",
+  "homepage": "https://github.com/imagineLife/wp-build#readme",
   "dependencies": {
-    "express": "^4.16.4",
-    "react": "^16.6.3"
+    "webpack": "^4.25.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^1.0.1",
+    "file-loader": "^2.0.0",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.1.2"
   }
 }
