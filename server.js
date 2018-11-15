@@ -13,6 +13,7 @@ var io = require('socket.io').listen(httpServer)
 
 
 let connections = [];
+let serverTitle = 'Demo Server Title';
 
 //connection happens when a socket gets connected
 io.sockets.on('connection', (connectedSocket) => {
@@ -33,6 +34,8 @@ io.sockets.on('connection', (connectedSocket) => {
 	console.log('socket CONNECTED, connected sockets:')
 	console.log(connections.length)
 	console.log(connectedSocket.id)
+
+	connectedSocket.emit('welcome', {title: serverTitle})
 
 })
 
