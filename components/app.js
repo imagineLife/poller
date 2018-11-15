@@ -8,6 +8,7 @@ class App extends React.Component{
 		super(props)
 		this.socket;
 		this.connectSocket = this.connectSocket.bind(this)	
+		this.disconnectSocket = this.disconnectSocket.bind(this)	
 		this.state = {
 			title: 'mytitle from app state',
 			connectedStatus: false
@@ -20,12 +21,19 @@ class App extends React.Component{
 		this.setState({connectedStatus: true})
 	}
 
+	disconnectSocket(){
+		console.log('client connected to socket it')
+		console.log(this.socket.id)
+		this.setState({connectedStatus: false})
+	}
+
 	componentWillMount(){
 		//connect socket server
 		this.socket = io('http://localhost:3000')
 
 		//add a listener to the socket for the connect event
 		this.socket.on('connect', this.connectSocket);
+		this.socket.on('disconnect', this.disconnectSocket);
 	}
 
 	render(){
