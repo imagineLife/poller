@@ -10,11 +10,13 @@
 */
 
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCss = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './client.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'dist/bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -27,11 +29,16 @@ module.exports = {
         }
       },
       {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader'
+          }
+        ]
+      },
+      {
   			test: /\.css$/,
-  			use: [
-  				'style-loader',
-  				'css-loader'
-  			]
+  			use: [MiniCss.loader, "css-loader"]
   		},
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -46,5 +53,15 @@ module.exports = {
         ]
       }
   	]
-  }
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: './public/index.html',
+      filename: './index.html'
+    }),
+    new MiniCss({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    })
+  ]
 };
