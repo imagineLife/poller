@@ -2,17 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import '../public/index.css'
 import io from 'socket.io-client'
-
+import Header from './Header'
 class App extends React.Component{
 	constructor(props){
 		super(props)
 		this.socket;
 		this.connectSocket = this.connectSocket.bind(this)	
+		this.state = {
+			title: 'mytitle from app state',
+			connectedStatus: false
+		}
 	}
 	
 	connectSocket(){
 		console.log('client connected to socket it')
 		console.log(this.socket.id)
+		this.setState({connectedStatus: true})
 	}
 
 	componentWillMount(){
@@ -25,10 +30,14 @@ class App extends React.Component{
 
 	render(){
 		return (
-			<div>
+			<React.Fragment>
+				<Header 
+					title={this.state.title}
+					statusColor={(this.state.connectedStatus == true) ? 'green' : 'red'}
+				/>
 				<p className="title">Dummy React Component here!</p>
 				<p>Mic Check</p>
-			</div>
+			</React.Fragment>
 		);
 	}
 }
