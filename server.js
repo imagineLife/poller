@@ -6,5 +6,15 @@ const app = express();
 app.use(express.static('./dist'));
 
 //start app
-app.listen(3000)
+var httpServer = app.listen(3000)
+
+//create a SOCKET server
+var io = require('socket.io').listen(httpServer)
+
+//connection happens when a socket gets connected
+io.sockets.on('connection', (connectedSocket) => {
+	console.log('New connectedSocket')
+	console.log(connectedSocket.id)
+})
+
 console.log('server running!')
