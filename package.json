@@ -1,0 +1,23 @@
+{
+  "name": "poller",
+  "version": "1.0.0",
+  "description": "polling with socket io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imagineLife/poller.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imagineLife/poller/issues"
+  },
+  "homepage": "https://github.com/imagineLife/poller#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "react": "^16.6.3"
+  }
+}
