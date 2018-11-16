@@ -8,23 +8,27 @@ class App extends React.Component{
 		super(props)
 		this.socket;
 		this.connectSocket = this.connectSocket.bind(this)	
-		this.disconnectSocket = this.disconnectSocket.bind(this)	
+		this.disconnectSocket = this.disconnectSocket.bind(this)
+		this.welcome = this.welcome.bind(this)
 		this.state = {
-			title: 'mytitle from app state',
+			title: '',
 			connectedStatus: false
 		}
 	}
 	
 	connectSocket(){
-		console.log('client connected to socket it')
-		console.log(this.socket.id)
+		console.log('client connected')
 		this.setState({connectedStatus: true})
 	}
 
 	disconnectSocket(){
-		console.log('client connected to socket it')
-		console.log(this.socket.id)
+		console.log('client DISconnected')
 		this.setState({connectedStatus: false})
+	}
+
+	welcome(serverState){
+		console.log('welcom on client')
+		this.setState({title: serverState.title})
 	}
 
 	componentWillMount(){
@@ -34,6 +38,7 @@ class App extends React.Component{
 		//add a listener to the socket for the connect event
 		this.socket.on('connect', this.connectSocket);
 		this.socket.on('disconnect', this.disconnectSocket);
+		this.socket.on('welcome', this.welcome)
 	}
 
 	render(){
