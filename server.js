@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path')
 
 //middlewares
 //serve static files via public folder
@@ -37,6 +38,14 @@ io.sockets.on('connection', (connectedSocket) => {
 
 	connectedSocket.emit('welcome', {title: serverTitle})
 
+})
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, './dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
 })
 
 console.log('server running!')

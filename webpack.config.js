@@ -17,7 +17,8 @@ module.exports = {
   entry: './client.js',
   output: {
     filename: 'dist/bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   module: {
   	rules: [
@@ -53,6 +54,9 @@ module.exports = {
         ]
       }
   	]
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebPackPlugin({

@@ -57,9 +57,11 @@ class App extends React.Component{
 				<Router>
 					<div className="routerWrapper">						
 						<Switch>
-					        <Route exact path="/" component={Audience} />
+					        <Redirect exact from="/" to="/Audience" />
+					        <Route exact path="/Audience" component={Audience} />
 					        <Route exact path="/Speaker" component={Speaker} />
 					        <Route exact path="/Board" component={Board} />
+					        <Redirect from="/*" to="/" />
 					    </Switch>
 				    </div>
 				</Router>
