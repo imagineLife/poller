@@ -3,6 +3,16 @@ import ReactDOM from "react-dom";
 import '../public/index.css'
 import io from 'socket.io-client'
 import Header from './Header'
+import {
+    BrowserRouter as Router,
+    Route,
+    Redirect,
+    Switch
+} from 'react-router-dom';
+import Audience from './Audience';
+import Speaker from './Speaker';
+import Board from './Board';
+
 class App extends React.Component{
 	constructor(props){
 		super(props)
@@ -44,12 +54,15 @@ class App extends React.Component{
 	render(){
 		return (
 			<React.Fragment>
-				<Header 
-					title={this.state.title}
-					statusColor={(this.state.connectedStatus == true) ? 'green' : 'red'}
-				/>
-				<p className="title">Dummy React Component here!</p>
-				<p>Mic Check</p>
+				<Router>
+					<div className="routerWrapper">						
+						<Switch>
+					        <Route exact path="/" component={Audience} />
+					        <Route exact path="/Speaker" component={Speaker} />
+					        <Route exact path="/Board" component={Board} />
+					    </Switch>
+				    </div>
+				</Router>
 			</React.Fragment>
 		);
 	}
