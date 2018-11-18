@@ -32,17 +32,22 @@ io.sockets.on('connection', (connectedSocket) => {
 
 	//the join event, when audience member joins
 	connectedSocket.on('joinPoll', (joinData) => {
-		console.log('joinData')
-		console.log(joinData)
-	})
+		
+		//gather needed info for joined member
+		const newMember = {
+			id: this.id,
+			memberName: joinData.fullName
+		}
 
+		//emit the joinedMember socket event
+		connectedSocket.emit('joinedMember', newMember);
+
+
+	})
 
 	//add current socket to connections array
 	connections.push(connectedSocket)
 	console.log('socket CONNECTED, connected sockets:')
-	console.log(connections.length)
-	console.log(connectedSocket.id)
-
 	connectedSocket.emit('welcome', {title: serverTitle})
 
 })
