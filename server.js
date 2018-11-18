@@ -40,6 +40,11 @@ io.sockets.on('connection', (connectedSocket) => {
 
 })
 
+//for connecting DB...
+/*
+app.get('/api', (req,res) => {})
+*/
+
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, './dist/index.html'), function(err) {
     if (err) {
