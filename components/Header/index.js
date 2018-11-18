@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import './index.css'
 
 function Header(props){
-	let style={backgroundColor: props.statusColor}
+	let style={backgroundColor: (props.connectedStatus) ? 'green' : 'red'}
 	return (
 		<header>
 			<h2>{props.title}</h2>

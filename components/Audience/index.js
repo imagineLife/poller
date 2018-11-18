@@ -1,5 +1,6 @@
 import React from "react";
 import './index.css'
+import Header from '../Header'
 import PollContent from '../PollContent'
 import JoinForm from '../JoinForm'
 
@@ -8,7 +9,7 @@ let Audience = (props) => {
 	console.log(props)
 	return (
 		<React.Fragment>
-			<h1>{props.title}</h1>
+			<Header title={props.title} connectedStatus={props.connectedStatus}/>
 			<PollContent showContent={props.connectedStatus}>
 				<JoinForm />
 			</PollContent>
