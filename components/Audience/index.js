@@ -1,7 +1,7 @@
 import React from "react";
 import './index.css'
 import Header from '../Header'
-import PollContent from '../PollContent'
+import ShowThis from '../ShowThis'
 import JoinForm from '../JoinForm'
 
 let Audience = (props) => {
@@ -10,17 +10,17 @@ let Audience = (props) => {
 	return (
 		<React.Fragment>
 			<Header title={props.title} connectedStatus={props.connectedStatus}/>
-			<PollContent showContent={props.connectedStatus}>
+			<ShowThis showContent={props.connectedStatus}>
 
-				<PollContent showContent={(props.memberStats.memberName)}>
+				<ShowThis showContent={(props.memberStats.memberName)}>
 					<h2>Welcome {props.memberStats.memberName}</h2>
-				</PollContent>
+				</ShowThis>
 
-				<PollContent showContent={!props.memberStats.memberName}>
+				<ShowThis showContent={!props.memberStats.memberName}>
 					<JoinForm emit={props.emit}/>
-				</PollContent>
+				</ShowThis>
 
-			</PollContent>
+			</ShowThis>
 		</React.Fragment>
 	);
 }
