@@ -57,9 +57,9 @@ class App extends React.Component{
 				<div className="switchWrapper">
 					<Switch>
 				        <Redirect exact from="/" to="/Audience" />
-				        <Route exact path="/Audience" component={Audience} />
-				        <Route exact path="/Speaker" component={Speaker} />
-				        <Route exact path="/Board" component={Board} />
+				        <Route exact path="/Audience" render={() => <Audience headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
+				        <Route exact path="/Speaker" render={() => <Speaker headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
+				        <Route exact path="/Board" render={() => <Board headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
 				        <Redirect from="/*" to="/Audience" />
 				        <Route component={Audience} />
 				    </Switch>
