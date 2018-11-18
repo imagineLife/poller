@@ -1,9 +1,14 @@
 import React from "react";
 import './index.css'
+import PollContent from '../PollContent'
 
 let Audience = (props) => {
+	console.log('audience props')
+	console.log(props)
 	return (
-		<h1>Audience</h1>
+		<PollContent showContent={props.connectedStatus}>
+			<h1>Showing PollContent child</h1>
+		</PollContent>
 	);
 }
   
