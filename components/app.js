@@ -60,6 +60,7 @@ class App extends React.Component{
 				        <Route exact path="/Audience" component={Audience} />
 				        <Route exact path="/Speaker" component={Speaker} />
 				        <Route exact path="/Board" component={Board} />
+				        <Redirect from="/*" to="/Audience" />
 				        <Route component={Audience} />
 				    </Switch>
 				</div>
