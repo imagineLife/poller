@@ -53,19 +53,17 @@ class App extends React.Component{
 
 	render(){
 		return (
-			<React.Fragment>
-				<Router>
-					<div className="routerWrapper">						
-						<Switch>
-					        <Redirect exact from="/" to="/Audience" />
-					        <Route exact path="/Audience" component={Audience} />
-					        <Route exact path="/Speaker" component={Speaker} />
-					        <Route exact path="/Board" component={Board} />
-					        <Redirect from="/*" to="/" />
-					    </Switch>
-				    </div>
-				</Router>
-			</React.Fragment>
+			<Router>					
+				<div className="switchWrapper">
+					<Switch>
+				        <Redirect exact from="/" to="/Audience" />
+				        <Route exact path="/Audience" component={Audience} />
+				        <Route exact path="/Speaker" component={Speaker} />
+				        <Route exact path="/Board" component={Board} />
+				        <Route component={Audience} />
+				    </Switch>
+				</div>
+			</Router>
 		);
 	}
 }
