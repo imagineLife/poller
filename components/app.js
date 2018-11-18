@@ -21,9 +21,11 @@ class App extends React.Component{
 		this.disconnectSocket = this.disconnectSocket.bind(this)
 		this.welcome = this.welcome.bind(this)
 		this.emit = this.emit.bind(this)
+		this.joinedMember = this.joinedMember.bind(this)
 		this.state = {
 			title: '',
-			connectedStatus: false
+			connectedStatus: false,
+			memberStats: {}
 		}
 	}
 	
@@ -49,6 +51,12 @@ class App extends React.Component{
 		this.socket.emit(eventName, data);
 	}
 
+	joinedMember(memberData){
+		this.setState({
+			memberStats: memberData
+		})
+	}
+
 	componentWillMount(){
 		//connect socket server
 		this.socket = io('http://localhost:3000')
@@ -57,6 +65,7 @@ class App extends React.Component{
 		this.socket.on('connect', this.connectSocket);
 		this.socket.on('disconnect', this.disconnectSocket);
 		this.socket.on('welcome', this.welcome)
+		this.socket.on('joinedMember', this.joinedMember)
 	}
 
 	render(){
