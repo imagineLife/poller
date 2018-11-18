@@ -30,6 +30,13 @@ io.sockets.on('connection', (connectedSocket) => {
 	})
 
 
+	//the join event, when audience member joins
+	connectedSocket.on('joinPoll', (joinData) => {
+		console.log('joinData')
+		console.log(joinData)
+	})
+
+
 	//add current socket to connections array
 	connections.push(connectedSocket)
 	console.log('socket CONNECTED, connected sockets:')

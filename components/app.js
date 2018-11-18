@@ -20,6 +20,7 @@ class App extends React.Component{
 		this.connectSocket = this.connectSocket.bind(this)	
 		this.disconnectSocket = this.disconnectSocket.bind(this)
 		this.welcome = this.welcome.bind(this)
+		this.emit = this.emit.bind(this)
 		this.state = {
 			title: '',
 			connectedStatus: false
@@ -41,6 +42,13 @@ class App extends React.Component{
 		this.setState({title: serverState.title})
 	}
 
+	emit(eventName, data){
+		console.log('app emitting...')
+		console.log(eventName)
+		console.log(data)
+		this.socket.emit(eventName, data);
+	}
+
 	componentWillMount(){
 		//connect socket server
 		this.socket = io('http://localhost:3000')
@@ -57,7 +65,7 @@ class App extends React.Component{
 				<div className="switchWrapper">
 					<Switch>
 				        <Redirect exact from="/" to="/Audience" />
-				        <Route exact path="/Audience" render={() => <Audience {...this.state} /> } />
+				        <Route exact path="/Audience" render={() => <Audience emit={this.emit} {...this.state} /> } />
 				        <Route exact path="/Speaker" render={() => <Speaker headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
 				        <Route exact path="/Board" render={() => <Board headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
 				        <Redirect from="/*" to="/Audience" />

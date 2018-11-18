@@ -11,7 +11,7 @@ let Audience = (props) => {
 		<React.Fragment>
 			<Header title={props.title} connectedStatus={props.connectedStatus}/>
 			<PollContent showContent={props.connectedStatus}>
-				<JoinForm />
+				<JoinForm emit={props.emit}/>
 			</PollContent>
 		</React.Fragment>
 	);

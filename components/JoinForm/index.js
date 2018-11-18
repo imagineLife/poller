@@ -25,6 +25,7 @@ class JoinForm extends React.Component{
 		e.preventDefault();
 		console.log('submitted Fn here!')
 		console.log(this.state.fullName)
+		this.props.emit('joinPoll', {fullName: this.state.fullName})
 	}
 
 	render(){
