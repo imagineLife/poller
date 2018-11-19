@@ -19,7 +19,7 @@ class App extends React.Component{
 		this.socket;
 		this.connectSocket = this.connectSocket.bind(this)	
 		this.disconnectSocket = this.disconnectSocket.bind(this)
-		this.welcome = this.welcome.bind(this)
+		this.updateState = this.updateState.bind(this)
 		this.emit = this.emit.bind(this)
 		this.notifyClientNewMember = this.notifyClientNewMember.bind(this)
 		this.updateAudience = this.updateAudience.bind(this)
@@ -51,9 +51,9 @@ class App extends React.Component{
 		this.setState({connectedStatus: false})
 	}
 
-	welcome(serverState){
-		console.log('welcom on client')
-		this.setState({...serverState})
+	updateState(serverState){
+		console.log('updateState on client')
+		this.setState(serverState)
 	}
 
 	emit(eventName, data){
@@ -86,9 +86,10 @@ class App extends React.Component{
 		//add a listener to the socket for each event
 		this.socket.on('connect', this.connectSocket);
 		this.socket.on('disconnect', this.disconnectSocket);
-		this.socket.on('welcome', this.welcome)
+		this.socket.on('welcome', this.updateState)
 		this.socket.on('notifyClientNewMember', this.notifyClientNewMember)
 		this.socket.on('updateAudience',this.updateAudience)
+		this.socket.on('startPresentation', this.updateState)
 	}
 
 	render(){
