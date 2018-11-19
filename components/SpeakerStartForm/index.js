@@ -48,8 +48,8 @@ class SpeakerStartForm extends React.Component{
 	}
 
 	render(){
-		// console.log('Start Pres Form Props')
-		// console.log(this.props)
+		console.log('Start Pres Form Props')
+		console.log(this.props)
 		return (
 			<form className="speakerStartForm" onSubmit={this.handleSubmit} >
 				<label for="fullName" className='inputlabel'>Full Name
