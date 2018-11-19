@@ -15,6 +15,7 @@ var io = require('socket.io').listen(httpServer)
 
 let connections = [];
 let audienceMembers = [];
+let speakerData = {};
 let serverTitle = 'Demo Server Title';
 
 //connection happens when a socket gets connected
@@ -43,9 +44,7 @@ io.sockets.on('connection', (connectedSocket) => {
 		//remove the connected socket from connections arr
 		connections.splice(connections.indexOf(connectedSocket), 1);
 		connectedSocket.disconnect();
-		console.log('socket disconnected, remaining sockets')
-		console.log(connections.length)
-
+		console.log(`socket disconnected, remaining sockets: ${connections.length}`)
 
 	})
 
@@ -60,7 +59,8 @@ io.sockets.on('connection', (connectedSocket) => {
 		let thisMem = (joinData.memberName) ? joinData.memberName : joinData.fullName
 		const newMember = {
 			id: thisID,
-			memberName: thisMem
+			memberName: thisMem,
+			type: 'member'
 		}
 
 		//emit the notifyClientNewMember socket event
@@ -77,8 +77,22 @@ io.sockets.on('connection', (connectedSocket) => {
 		//broadcast an updated audience to all clients
 		io.sockets.emit('updateAudience',audienceMembers);
 
+	})
+
+	connectedSocket.on('startPresentation', payload => {
+		console.log('startPresentation payload')
+		console.log(payload)
+		
+		//update speakerData obj
+		speakerData.memberName = payload.fullName;
+		speakerData.id = connectedSocket.id;
+		speakerData.type = 'speaker';
+
+		this.emit('notifyClientNewMember', speakerData);
+		console.log('PRES STARTED!!')
 
 	})
+
 
 	//add current socket to connections array
 	connections.push(connectedSocket)
