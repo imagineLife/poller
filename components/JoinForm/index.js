@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Link} from 'react-router-dom';
 import './index.css'
 
 class JoinForm extends React.Component{
@@ -43,6 +44,7 @@ class JoinForm extends React.Component{
 						required/>
 					<input type="submit" value="Join" />
 				</label>
+				<Link to={`/Speaker`}>Start Presentation as Speaker</Link>
 			</form>
 		);
 	}
