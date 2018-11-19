@@ -28,6 +28,7 @@ class App extends React.Component{
 			connectedStatus: false,
 			memberStats: {},
 			audienceMembers: [],
+			speakerStats: {},
 		}
 	}
 	
@@ -56,7 +57,7 @@ class App extends React.Component{
 	}
 
 	emit(eventName, data){
-		console.log('app emitting...')
+		console.log('APP emitting...')
 		console.log(eventName)
 		console.log(data)
 		this.socket.emit(eventName, data);
@@ -97,7 +98,7 @@ class App extends React.Component{
 					<Switch>
 				        <Redirect exact from="/" to="/Audience" />
 				        <Route exact path="/Audience" render={() => <Audience emit={this.emit} {...this.state} /> } />
-				        <Route exact path="/Speaker" render={() => <Speaker headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
+				        <Route exact path="/Speaker" render={() => <Speaker emit={this.emit} {...this.state} /> } />
 				        <Route exact path="/Board" render={() => <Board headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
 				        <Redirect from="/*" to="/Audience" />
 				        <Route component={Audience} />
