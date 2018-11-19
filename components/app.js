@@ -28,7 +28,7 @@ class App extends React.Component{
 			connectedStatus: false,
 			memberStats: {},
 			audienceMembers: [],
-			speakerStats: {},
+			speaker: '',
 		}
 	}
 	
@@ -53,7 +53,7 @@ class App extends React.Component{
 
 	welcome(serverState){
 		console.log('welcom on client')
-		this.setState({title: serverState.title})
+		this.setState({...serverState})
 	}
 
 	emit(eventName, data){
