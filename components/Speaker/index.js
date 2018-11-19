@@ -18,7 +18,7 @@ let Speaker = (props) => {
 					<p>Attendance</p>
 				</ShowThis>
 
-				<ShowThis showContent={(!props.memberStats)}>
+				<ShowThis showContent={(!props.memberStats.memberName)}>
 					<p>Start the presentaiton</p>
 					<SpeakerStartForm emit={props.emit} />
 				</ShowThis>
