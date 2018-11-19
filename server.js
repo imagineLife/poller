@@ -88,7 +88,8 @@ io.sockets.on('connection', (connectedSocket) => {
 		speakerData.id = connectedSocket.id;
 		speakerData.type = 'speaker';
 
-		this.emit('notifyClientNewMember', speakerData);
+		//how does the guy use the THIS keyword here instead of connectedSocket?!
+		connectedSocket.emit('notifyClientNewMember', speakerData);
 		console.log('PRES STARTED!!')
 
 	})
