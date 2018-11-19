@@ -52,19 +52,28 @@ io.sockets.on('connection', (connectedSocket) => {
 
 	//the join event, when audience member joins
 	connectedSocket.on('joinPoll', (joinData) => {
-		
-		//gather needed info for joined member
+		console.log('joining poll on SERVER')
+		console.log(joinData)
+
+		//craft a new-member obj for later
+		let thisID = (joinData.id) ? joinData.id : connectedSocket.id
+		let thisMem = (joinData.memberName) ? joinData.memberName : joinData.fullName
 		const newMember = {
-			id: connectedSocket.id,
-			memberName: joinData.fullName
+			id: thisID,
+			memberName: thisMem
 		}
 
-		//emit the joinedMember socket event
-		connectedSocket.emit('joinedMember', newMember);
+		//emit the notifyClientNewMember socket event
+		connectedSocket.emit('notifyClientNewMember', newMember);
 
-		//collect connected audience member
-		audienceMembers.push(newMember)
+		//Add person to audience if not there
+		//quick refresh is FASTER than socket logic
+		let curMemInAud = audienceMembers.find(m => m.id == newMember.id)
 
+		if(!curMemInAud){
+			audienceMembers.push(newMember)
+		}
+		
 		//broadcast an updated audience to all clients
 		io.sockets.emit('updateAudience',audienceMembers);
 

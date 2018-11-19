@@ -21,7 +21,7 @@ class App extends React.Component{
 		this.disconnectSocket = this.disconnectSocket.bind(this)
 		this.welcome = this.welcome.bind(this)
 		this.emit = this.emit.bind(this)
-		this.joinedMember = this.joinedMember.bind(this)
+		this.notifyClientNewMember = this.notifyClientNewMember.bind(this)
 		this.updateAudience = this.updateAudience.bind(this)
 		this.state = {
 			title: '',
@@ -32,7 +32,16 @@ class App extends React.Component{
 	}
 	
 	connectSocket(){
-		console.log('client connected')
+		console.log('connect Socket Ran!')
+
+		const alreadyLoggedInNote = (sessionStorage.livePollNote) ? JSON.parse(sessionStorage.livePollNote) : null;
+		
+		if(alreadyLoggedInNote){
+			console.log('already logged in!')
+			console.log(alreadyLoggedInNote)
+			this.emit('joinPoll', alreadyLoggedInNote);
+		}
+
 		this.setState({connectedStatus: true})
 	}
 
@@ -53,7 +62,13 @@ class App extends React.Component{
 		this.socket.emit(eventName, data);
 	}
 
-	joinedMember(memberData){
+	notifyClientNewMember(memberData){
+
+		//save details to browser session
+		console.log('notifyClientNewMember')
+		console.log(memberData)
+		sessionStorage.livePollNote = JSON.stringify(memberData);
+
 		this.setState({
 			memberStats: memberData
 		})
@@ -71,7 +86,7 @@ class App extends React.Component{
 		this.socket.on('connect', this.connectSocket);
 		this.socket.on('disconnect', this.disconnectSocket);
 		this.socket.on('welcome', this.welcome)
-		this.socket.on('joinedMember', this.joinedMember)
+		this.socket.on('notifyClientNewMember', this.notifyClientNewMember)
 		this.socket.on('updateAudience',this.updateAudience)
 	}
 

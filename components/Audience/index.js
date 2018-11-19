@@ -5,8 +5,8 @@ import ShowThis from '../ShowThis'
 import JoinForm from '../JoinForm'
 
 let Audience = (props) => {
-	console.log('audience props')
-	console.log(props)
+	// console.log('audience props')
+	// console.log(props)
 	return (
 		<React.Fragment>
 			<Header title={props.title} connectedStatus={props.connectedStatus}/>
