@@ -90,6 +90,10 @@ io.sockets.on('connection', (connectedSocket) => {
 
 		//how does the guy use the THIS keyword here instead of connectedSocket?!
 		connectedSocket.emit('notifyClientNewMember', speakerData);
+
+		//emit event to ALL sockets
+		io.sockets.emit('startPresentation', {title: serverTitle, speaker: speakerData.memberName})
+
 		console.log('PRES STARTED!!')
 
 	})
