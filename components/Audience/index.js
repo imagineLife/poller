@@ -9,7 +9,7 @@ let Audience = (props) => {
 	// console.log(props)
 	return (
 		<React.Fragment>
-			<Header title={props.title} connectedStatus={props.connectedStatus}/>
+			<Header {...props}/>
 			<ShowThis showContent={props.connectedStatus}>
 
 				<ShowThis showContent={(props.memberStats.memberName)}>
