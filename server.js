@@ -98,7 +98,11 @@ io.sockets.on('connection', (connectedSocket) => {
 	//add current socket to connections array
 	connections.push(connectedSocket)
 	console.log(`CONNECTED: cur sockets: ${connections.length}`)
-	connectedSocket.emit('welcome', {title: serverTitle})
+	connectedSocket.emit('welcome', {
+		title: serverTitle,
+		audienceMembers:audienceMembers,
+		speaker: speakerData.memberName
+	})
 
 })
 
