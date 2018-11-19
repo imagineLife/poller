@@ -23,11 +23,30 @@ io.sockets.on('connection', (connectedSocket) => {
 	//when socket DISconnects
 	//once happens ONCE, not like an 'on'
 	connectedSocket.once('disconnect', () => {
-		//remove socket from connections arr
+
+		//find connected member from audienceArr
+		//how does the tutorial host use THIS?...
+		let curMemInAud = audienceMembers.find(m => m.id == connectedSocket.id)
+		
+		if(curMemInAud){
+
+			//remove connected member from audienceArr
+			audienceMembers.splice(audienceMembers.indexOf(curMemInAud), 1);
+
+			//broadcast updated-audience
+			io.sockets.emit('updateAudience', audienceMembers)
+
+			//log cur audience
+			console.log(`Currently ${audienceMembers.length} members`)
+
+		}
+		//remove the connected socket from connections arr
 		connections.splice(connections.indexOf(connectedSocket), 1);
 		connectedSocket.disconnect();
 		console.log('socket disconnected, remaining sockets')
 		console.log(connections.length)
+
+
 	})
 
 
@@ -36,7 +55,7 @@ io.sockets.on('connection', (connectedSocket) => {
 		
 		//gather needed info for joined member
 		const newMember = {
-			id: this.id,
+			id: connectedSocket.id,
 			memberName: joinData.fullName
 		}
 
@@ -54,7 +73,7 @@ io.sockets.on('connection', (connectedSocket) => {
 
 	//add current socket to connections array
 	connections.push(connectedSocket)
-	console.log('socket CONNECTED, connected sockets:')
+	console.log(`CONNECTED: cur sockets: ${connections.length}`)
 	connectedSocket.emit('welcome', {title: serverTitle})
 
 })
