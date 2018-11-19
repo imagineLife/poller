@@ -22,10 +22,12 @@ class App extends React.Component{
 		this.welcome = this.welcome.bind(this)
 		this.emit = this.emit.bind(this)
 		this.joinedMember = this.joinedMember.bind(this)
+		this.updateAudience = this.updateAudience.bind(this)
 		this.state = {
 			title: '',
 			connectedStatus: false,
-			memberStats: {}
+			memberStats: {},
+			audienceMembers: [],
 		}
 	}
 	
@@ -57,15 +59,20 @@ class App extends React.Component{
 		})
 	}
 
+	updateAudience(aud){
+		this.setState({audienceMembers: aud})
+	}
+
 	componentWillMount(){
 		//connect socket server
 		this.socket = io('http://localhost:3000')
 
-		//add a listener to the socket for the connect event
+		//add a listener to the socket for each event
 		this.socket.on('connect', this.connectSocket);
 		this.socket.on('disconnect', this.disconnectSocket);
 		this.socket.on('welcome', this.welcome)
 		this.socket.on('joinedMember', this.joinedMember)
+		this.socket.on('updateAudience',this.updateAudience)
 	}
 
 	render(){

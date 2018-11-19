@@ -14,6 +14,7 @@ var io = require('socket.io').listen(httpServer)
 
 
 let connections = [];
+let audienceMembers = [];
 let serverTitle = 'Demo Server Title';
 
 //connection happens when a socket gets connected
@@ -41,6 +42,12 @@ io.sockets.on('connection', (connectedSocket) => {
 
 		//emit the joinedMember socket event
 		connectedSocket.emit('joinedMember', newMember);
+
+		//collect connected audience member
+		audienceMembers.push(newMember)
+
+		//broadcast an updated audience to all clients
+		io.sockets.emit('updateAudience',audienceMembers);
 
 
 	})

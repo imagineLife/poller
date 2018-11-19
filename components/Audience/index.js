@@ -14,6 +14,7 @@ let Audience = (props) => {
 
 				<ShowThis showContent={(props.memberStats.memberName)}>
 					<h2>Welcome {props.memberStats.memberName}</h2>
+					<p>{props.audienceMembers.length} folks connected</p>
 				</ShowThis>
 
 				<ShowThis showContent={!props.memberStats.memberName}>
