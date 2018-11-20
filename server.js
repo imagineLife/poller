@@ -18,6 +18,7 @@ let audienceMembers = [];
 let speakerData = {};
 let serverTitle = 'Demo Server Title';
 let pollQuestions = require('./questions');
+let curQuestion = false;
 
 //connection happens when a socket gets connected
 io.sockets.on('connection', (connectedSocket) => {
@@ -109,6 +110,13 @@ io.sockets.on('connection', (connectedSocket) => {
 
 	})
 
+	//speaker-initiated ASK event
+	connectedSocket.on('speakerSelectsQuestion', q => {
+		curQuestion = q;
+		io.sockets.emit('sendQtoClient', curQuestion);
+		console.log(`via SERVER, speaker asks: ${q.q}`)
+
+	})
 
 	//add current socket to connections array
 	connections.push(connectedSocket)
@@ -117,7 +125,8 @@ io.sockets.on('connection', (connectedSocket) => {
 		title: serverTitle,
 		audienceMembers:audienceMembers,
 		speaker: speakerData.memberName,
-		questions: pollQuestions
+		questions: pollQuestions,
+		curQuestion: curQuestion
 	})
 
 })
