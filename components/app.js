@@ -24,13 +24,15 @@ class App extends React.Component{
 		this.notifyClientNewMember = this.notifyClientNewMember.bind(this)
 		this.updateAudience = this.updateAudience.bind(this)
 		this.startPresentation = this.startPresentation.bind(this)
+		this.askQToClient = this.askQToClient.bind(this)
 		this.state = {
 			title: '',
 			connectedStatus: false,
 			memberStats: {},
 			audienceMembers: [],
 			speaker: '',
-			questions: []
+			questions: [],
+			curQuestion: false
 		}
 	}
 	
@@ -104,6 +106,10 @@ class App extends React.Component{
 		this.setState(presInfo)
 	}
 
+	askQToClient(q){
+		this.setState({curQuestion: q})
+	}
+
 	componentWillMount(){
 		//connect socket server
 		this.socket = io('http://localhost:3000')
@@ -116,6 +122,7 @@ class App extends React.Component{
 		this.socket.on('updateAudience',this.updateAudience)
 		this.socket.on('startPresentation', this.startPresentation)
 		this.socket.on('endPresentation', this.updateState)
+		this.socket.on('sendQtoClient', this.askQToClient)
 	}
 
 	render(){
