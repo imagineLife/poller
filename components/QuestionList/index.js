@@ -4,6 +4,12 @@ import './index.css'
 class QuestionList extends React.Component{
 	constructor(props){
 		super(props)
+
+		this.selectQuestion = this.selectQuestion.bind(this)
+	}
+
+	selectQuestion(q){
+		this.props.emit('speakerSelectsQuestion',q)
 	}
 
 	render(){
@@ -13,7 +19,7 @@ class QuestionList extends React.Component{
 		let questions = this.props.questions.map((q,i) => {
 			return(
 				<div key={i} className="singleQuestion">
-					<span>{q.q}</span>
+					<span onClick={() => this.selectQuestion(q)}>{q.q}</span>
 				</div>
 			)
 		})
