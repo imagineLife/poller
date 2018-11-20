@@ -17,6 +17,7 @@ let connections = [];
 let audienceMembers = [];
 let speakerData = {};
 let serverTitle = 'Demo Server Title';
+let questions = require('./questions');
 
 //connection happens when a socket gets connected
 io.sockets.on('connection', (connectedSocket) => {
