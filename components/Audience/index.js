@@ -13,8 +13,17 @@ let Audience = (props) => {
 			<ShowThis showContent={props.connectedStatus}>
 
 				<ShowThis showContent={(props.memberStats.memberName)}>
-					<h2>Welcome {props.memberStats.memberName}</h2>
-					<p>{props.audienceMembers.length} folks connected</p>
+				
+					<ShowThis showContent={(!props.curQuestion)}>
+						<h2>Welcome {props.memberStats.memberName}</h2>
+						<p>{props.audienceMembers.length} folks connected</p>
+						<p>Questions coming soon...</p>
+					</ShowThis>
+
+					<ShowThis showContent={(props.curQuestion)}>
+						<h2>Welcome {props.curQuestion.q}</h2>
+					</ShowThis>
+					
 				</ShowThis>
 
 				<ShowThis showContent={!props.memberStats.memberName}>
