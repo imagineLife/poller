@@ -23,6 +23,7 @@ class App extends React.Component{
 		this.emit = this.emit.bind(this)
 		this.notifyClientNewMember = this.notifyClientNewMember.bind(this)
 		this.updateAudience = this.updateAudience.bind(this)
+		this.startPresentation = this.startPresentation.bind(this)
 		this.state = {
 			title: '',
 			connectedStatus: false,
@@ -35,12 +36,21 @@ class App extends React.Component{
 	connectSocket(){
 		console.log('connect Socket Ran!')
 
+		//check if already logged in
 		const alreadyLoggedInNote = (sessionStorage.livePollNote) ? JSON.parse(sessionStorage.livePollNote) : null;
 		
-		if(alreadyLoggedInNote){
-			console.log('already logged in!')
+		//if already logged in member
+		if(alreadyLoggedInNote && alreadyLoggedInNote.type === 'audience'){
+			console.log('already logged in member!')
 			console.log(alreadyLoggedInNote)
 			this.emit('joinPoll', alreadyLoggedInNote);
+		}
+
+		//if laready logged in speaker
+		if(alreadyLoggedInNote && alreadyLoggedInNote.type === 'speaker'){
+			console.log('alreadyLoggedInNote')
+			console.log(alreadyLoggedInNote)
+			this.emit('startPresentation', {title: sessionStorage.title, fullName: alreadyLoggedInNote.memberName})
 		}
 
 		this.setState({connectedStatus: true})
@@ -68,6 +78,7 @@ class App extends React.Component{
 		//save details to browser session
 		console.log('notifyClientNewMember')
 		console.log(memberData)
+		memberData.fullName = memberData.name;
 		sessionStorage.livePollNote = JSON.stringify(memberData);
 
 		this.setState({
@@ -77,6 +88,15 @@ class App extends React.Component{
 
 	updateAudience(aud){
 		this.setState({audienceMembers: aud})
+	}
+
+	startPresentation(presInfo){
+
+		//if speaker, save presentation title in local storage 
+		if(this.state.memberStats.type === 'speaker'){
+			sessionStorage.title = presInfo.title;
+		}
+		this.setState(presInfo)
 	}
 
 	componentWillMount(){
@@ -89,7 +109,8 @@ class App extends React.Component{
 		this.socket.on('welcome', this.updateState)
 		this.socket.on('notifyClientNewMember', this.notifyClientNewMember)
 		this.socket.on('updateAudience',this.updateAudience)
-		this.socket.on('startPresentation', this.updateState)
+		this.socket.on('startPresentation', this.startPresentation)
+		this.socket.on('endPresentation', this.updateState)
 	}
 
 	render(){
