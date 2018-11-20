@@ -102,7 +102,7 @@ io.sockets.on('connection', (connectedSocket) => {
 		connectedSocket.emit('notifyClientNewMember', speakerData);
 
 		//emit event to ALL sockets
-		io.sockets.emit('startPresentation', {title: payload.presentationTitle, speaker: speakerData.memberName})
+		io.sockets.emit('startPresentation', {title: payload.title, speaker: speakerData.memberName})
 
 		console.log('PRES STARTED!!')
 
