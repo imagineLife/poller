@@ -40,6 +40,16 @@ io.sockets.on('connection', (connectedSocket) => {
 			//log cur audience
 			console.log(`Currently ${audienceMembers.length} members`)
 
+		//if SPEAKER disconnects
+		} else if(connectedSocket.id === speakerData.id){
+
+			console.log(`${speakerData.memberName} has left as host`)
+			speakerData = {};
+			serverTitle = '';
+
+			//tell ALL sockets that presEnded
+			io.sockets.emit('endPresentation', {title: serverTitle, speaker: ''})
+
 		}
 		//remove the connected socket from connections arr
 		connections.splice(connections.indexOf(connectedSocket), 1);
