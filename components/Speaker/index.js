@@ -16,7 +16,6 @@ let Speaker = (props) => {
 			<ShowThis showContent={(props.connectedStatus == true)}>
 
 				<ShowThis showContent={(props.memberStats && props.memberStats.type == 'speaker' && props.memberStats.memberName)}>
-					<p>Questions</p>
 					<QuestionList questions={props.questions}/>
 					<AttendanceNote audienceMembers={props.audienceMembers}/>
 				</ShowThis>
