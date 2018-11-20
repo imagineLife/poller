@@ -30,6 +30,7 @@ class App extends React.Component{
 			memberStats: {},
 			audienceMembers: [],
 			speaker: '',
+			questions: []
 		}
 	}
 	
