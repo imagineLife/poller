@@ -4,6 +4,7 @@ import SpeakerStartForm from '../SpeakerStartForm'
 import Header from '../Header'
 import ShowThis from '../ShowThis'
 import AttendanceNote from '../AttendanceNote'
+import QuestionList from '../QuestionList'
 
 let Speaker = (props) => {
 	console.log("speaker props")
@@ -16,6 +17,7 @@ let Speaker = (props) => {
 
 				<ShowThis showContent={(props.memberStats && props.memberStats.type == 'speaker' && props.memberStats.memberName)}>
 					<p>Questions</p>
+					<QuestionList questions={props.questions}/>
 					<AttendanceNote audienceMembers={props.audienceMembers}/>
 				</ShowThis>
 
