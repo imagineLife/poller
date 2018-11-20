@@ -44,7 +44,7 @@ class SpeakerStartForm extends React.Component{
 		e.preventDefault();
 		console.log('submitted Fn here!')
 		console.log(this.state.fullName)
-		this.props.emit('startPresentation', {fullName: this.state.fullName, presentationTitle:this.state.presentationTitle})
+		this.props.emit('startPresentation', {fullName: this.state.fullName, title:this.state.presentationTitle})
 	}
 
 	render(){
