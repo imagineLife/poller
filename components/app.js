@@ -57,8 +57,12 @@ class App extends React.Component{
 	}
 
 	disconnectSocket(){
-		console.log('client DISconnected')
-		this.setState({connectedStatus: false})
+		console.log('APP DISconnected')
+		this.setState({
+			connectedStatus: false,
+			title: 'disconnected',
+			speaker: ''
+		})
 	}
 
 	updateState(serverState){
