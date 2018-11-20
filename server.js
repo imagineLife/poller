@@ -22,7 +22,7 @@ let curQuestion = false;
 
 //connection happens when a socket gets connected
 io.sockets.on('connection', (connectedSocket) => {
-
+	console.log('CONNECTION event')
 	//when socket DISconnects
 	//once happens ONCE, not like an 'on'
 	connectedSocket.once('disconnect', () => {
@@ -41,11 +41,12 @@ io.sockets.on('connection', (connectedSocket) => {
 
 			//log cur audience
 			console.log(`Currently ${audienceMembers.length} members`)
+		}  
 
 		//if SPEAKER disconnects
-		} else if(connectedSocket.id === speakerData.id){
+		if(connectedSocket.id == speakerData.id){
+			console.log('SPEAKER disconnected')
 
-			console.log(`${speakerData.memberName} has left as host`)
 			speakerData = {};
 			serverTitle = '';
 
@@ -72,7 +73,8 @@ io.sockets.on('connection', (connectedSocket) => {
 		const newMember = {
 			id: thisID,
 			memberName: thisMem,
-			type: 'member'
+			type: 'member',
+			title: serverTitle
 		}
 
 		//emit the notifyClientNewMember socket event
@@ -99,6 +101,7 @@ io.sockets.on('connection', (connectedSocket) => {
 		speakerData.memberName = payload.fullName;
 		speakerData.id = connectedSocket.id;
 		speakerData.type = 'speaker';
+		serverTitle = payload.title;
 
 		//how does the guy use the THIS keyword here instead of connectedSocket?!
 		connectedSocket.emit('notifyClientNewMember', speakerData);
