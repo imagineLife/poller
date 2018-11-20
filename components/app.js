@@ -43,16 +43,13 @@ class App extends React.Component{
 		const alreadyLoggedInNote = (sessionStorage.livePollNote) ? JSON.parse(sessionStorage.livePollNote) : null;
 		
 		//if already logged in member
-		if(alreadyLoggedInNote && alreadyLoggedInNote.type === 'audience'){
+		if(alreadyLoggedInNote && alreadyLoggedInNote.type === 'member'){
 			console.log('already logged in member!')
-			console.log(alreadyLoggedInNote)
 			this.emit('joinPoll', alreadyLoggedInNote);
 		}
 
 		//if laready logged in speaker
 		if(alreadyLoggedInNote && alreadyLoggedInNote.type === 'speaker'){
-			console.log('alreadyLoggedInNote')
-			console.log(alreadyLoggedInNote)
 			this.emit('startPresentation', {title: sessionStorage.title, fullName: alreadyLoggedInNote.memberName})
 		}
 
