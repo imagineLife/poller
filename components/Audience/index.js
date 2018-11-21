@@ -24,7 +24,9 @@ let Audience = (props) => {
 					<ShowThis showContent={(props.curQuestion)}>
 						<h2>Welcome</h2>
 						<h3>{props.curQuestion.q}</h3>
-						<UserAnswers curQuestion={props.curQuestion} />
+						<UserAnswers 
+							curQuestion={props.curQuestion} 
+							emit={props.emit} />
 					</ShowThis>
 					
 				</ShowThis>
