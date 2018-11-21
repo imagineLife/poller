@@ -141,6 +141,7 @@ io.sockets.on('connection', (connectedSocket) => {
 	connectedSocket.on('memberSelectsAnswer', payload => {
 		// serverAnswerBank[payload.choice]++
 		console.log(`via server, user selected ${payload}`)
+		serverAnswerBank[payload]++;
 		console.log(`server answerSEt NOw...`)
 		console.log(serverAnswerBank);
 	})
