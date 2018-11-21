@@ -36,12 +36,14 @@ class UserAnswers extends React.Component{
 		// sessionStorage.selectedChoice = opt;
 
 		this.props.emit('memberSelectsAnswer', opt)
+		this.setState({selectedChoice: opt})
 	}
 
 	render(){
 		let theseWorkingOpts = this.state.answerOpts;
+		let dis = (this.state.selectedChoice !== undefined) ? true : false;
 		let selectableAnswers = theseWorkingOpts.map((opt, ind) => {
-			return <button key={opt} onClick={(e) => this.selectAnswer(opt, e)}>{opt}: {this.props.curQuestion[opt]}</button> 
+			return <button key={opt} onClick={(e) => this.selectAnswer(opt, e)} disabled={dis}>{opt}: {this.props.curQuestion[opt]}</button> 
 		});
 	
 		return (
