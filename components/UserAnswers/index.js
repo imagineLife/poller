@@ -1,28 +1,61 @@
 import React from "react";
 import './index.css'
 
-function UserAnswers(props){
-	console.log('UserAnswers props')
-	console.log(props)
-	let answerOpts = [
-		{ a: props.curQuestion.a},
-		{ b: props.curQuestion.b},
-		{ c: props.curQuestion.c},
-		{ d: props.curQuestion.d},
-	];
+class UserAnswers extends React.Component{
+	constructor(props){
+		super(props)
 
-	let selectableAnswers = answerOpts.map((opt, ind) => {
-		let optKey = Object.keys(opt);
-		return <p key={ind}>{optKey}: {opt[optKey]}</p> 
-	});
+		this.state = {
+			answerOpts : []
+		}
 
-	return (
-		<div className='curQuestions'>
-			<div className="questionAnswerOptions">
-				{selectableAnswers}
+		this.selectAnswer = this.selectAnswer.bind(this)
+		this.captureAnswerOpts = this.captureAnswerOpts.bind(this)
+	}
+
+	componentDidMount(){
+		console.log('UserAnswers CDM')
+		this.captureAnswerOpts();
+	}
+
+	captureAnswerOpts(){
+		console.log('captureAnswerOpts')
+		console.log(this.props.curQuestion)
+		let workingOpts = this.state.answerOpts;
+		 workingOpts = Object.keys(this.props.curQuestion)
+		workingOpts.shift();
+		console.log('workingOpts')
+		console.log(workingOpts)
+		this.setState({answerOpts: workingOpts})
+
+	}
+
+	selectAnswer(e){
+		console.log('emit answer to server')
+		console.log('e')
+		console.log(e)
+		//just in case user refreshes mid-question
+		sessionStorage.selectedChoice = selectedChoice;
+
+		this.props.emit('memberSelectsAnswer', selectedChoice)
+	}
+
+	render(){
+		let theseWorkingOpts = this.state.answerOpts;
+		let selectableAnswers = theseWorkingOpts.map((opt, ind) => {
+			console.log('mapping theseWorkingOpts')
+			console.log(opt)
+			return <button key={opt} onClick={(e) => this.selectAnswer(e)}>{opt}: {this.props.curQuestion[opt]}</button> 
+		});
+	
+		return (
+			<div className='curQuestions'>
+				<div className="questionAnswerOptions">
+					{selectableAnswers}
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
   
 export default UserAnswers;
