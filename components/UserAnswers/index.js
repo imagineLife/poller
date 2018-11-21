@@ -6,46 +6,42 @@ class UserAnswers extends React.Component{
 		super(props)
 
 		this.state = {
-			answerOpts : []
+			answerOpts : [],
+			selectedChoice: undefined
 		}
 
 		this.selectAnswer = this.selectAnswer.bind(this)
-		this.captureAnswerOpts = this.captureAnswerOpts.bind(this)
+		this.captureAnswerOptsFromServer = this.captureAnswerOptsFromServer.bind(this)
 	}
 
 	componentDidMount(){
 		console.log('UserAnswers CDM')
-		this.captureAnswerOpts();
+		this.captureAnswerOptsFromServer();
 	}
 
-	captureAnswerOpts(){
-		console.log('captureAnswerOpts')
+	captureAnswerOptsFromServer(){
+		console.log('captureAnswerOptsFromServer')
 		console.log(this.props.curQuestion)
 		let workingOpts = this.state.answerOpts;
 		 workingOpts = Object.keys(this.props.curQuestion)
 		workingOpts.shift();
-		console.log('workingOpts')
-		console.log(workingOpts)
 		this.setState({answerOpts: workingOpts})
 
 	}
 
-	selectAnswer(e){
-		console.log('emit answer to server')
-		console.log('e')
-		console.log(e)
-		//just in case user refreshes mid-question
-		sessionStorage.selectedChoice = selectedChoice;
+	selectAnswer(opt, e){
+		console.log('USERANSWER selectAnswer')
 
-		this.props.emit('memberSelectsAnswer', selectedChoice)
+		//just in case user refreshes mid-question
+		// sessionStorage.selectedChoice = opt;
+
+		this.props.emit('memberSelectsAnswer', opt)
 	}
 
 	render(){
 		let theseWorkingOpts = this.state.answerOpts;
 		let selectableAnswers = theseWorkingOpts.map((opt, ind) => {
-			console.log('mapping theseWorkingOpts')
-			console.log(opt)
-			return <button key={opt} onClick={(e) => this.selectAnswer(e)}>{opt}: {this.props.curQuestion[opt]}</button> 
+			return <button key={opt} onClick={(e) => this.selectAnswer(opt, e)}>{opt}: {this.props.curQuestion[opt]}</button> 
 		});
 	
 		return (
