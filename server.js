@@ -19,6 +19,14 @@ let speakerData = {};
 let serverTitle = 'Demo Server Title';
 let pollQuestions = require('./questions');
 let curQuestion = false;
+let serverAnswerBank = {
+	a:0,
+	b:0,
+	c:0,
+	d:0
+}
+
+
 
 //connection happens when a socket gets connected
 io.sockets.on('connection', (connectedSocket) => {
@@ -116,9 +124,25 @@ io.sockets.on('connection', (connectedSocket) => {
 	//speaker-initiated ASK event
 	connectedSocket.on('speakerSelectsQuestion', q => {
 		curQuestion = q;
+
+		//reset the stored server question results
+		serverAnswerBank = {
+			a:0,
+			b:0,
+			c:0,
+			d:0
+		};
+
 		io.sockets.emit('sendQtoClient', curQuestion);
 		console.log(`via SERVER, speaker asks: ${q.q}`)
 
+	})
+
+	connectedSocket.on('memberSelectsAnswer', payload => {
+		// serverAnswerBank[payload.choice]++
+		console.log(`via server, user selected ${payload}`)
+		console.log(`server answerSEt NOw...`)
+		console.log(serverAnswerBank);
 	})
 
 	//add current socket to connections array
