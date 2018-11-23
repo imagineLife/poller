@@ -26,7 +26,9 @@ let Audience = (props) => {
 						<h3>{props.curQuestion.q}</h3>
 						<UserAnswers 
 							curQuestion={props.curQuestion} 
-							emit={props.emit} />
+							emit={props.emit} 
+							setButtonsDisabled={props.setButtonsDisabled}
+							/>
 					</ShowThis>
 					
 				</ShowThis>
