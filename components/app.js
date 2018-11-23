@@ -25,6 +25,7 @@ class App extends React.Component{
 		this.updateAudience = this.updateAudience.bind(this)
 		this.startPresentation = this.startPresentation.bind(this)
 		this.askQToClient = this.askQToClient.bind(this)
+		this.updateButtonAbility = this.updateButtonAbility.bind(this)
 		this.state = {
 			title: '',
 			connectedStatus: false,
@@ -32,7 +33,8 @@ class App extends React.Component{
 			audienceMembers: [],
 			speaker: '',
 			questions: [],
-			curQuestion: false
+			curQuestion: false,
+			buttonsDisabled: false
 		}
 	}
 	
@@ -104,7 +106,12 @@ class App extends React.Component{
 	}
 
 	askQToClient(q){
+		//CAN ADD clear the current sessionStorage-saved answer here
 		this.setState({curQuestion: q})
+	}
+
+	updateButtonAbility(tf){
+		this.setState({buttonsDisabled: tf})
 	}
 
 	componentWillMount(){
@@ -128,7 +135,7 @@ class App extends React.Component{
 				<div className="switchWrapper">
 					<Switch>
 				        <Redirect exact from="/" to="/Audience" />
-				        <Route exact path="/Audience" render={() => <Audience emit={this.emit} {...this.state} /> } />
+				        <Route exact path="/Audience" render={() => <Audience emit={this.emit} {...this.state} setButtonsDisabled={this.updateButtonAbility}/> } />
 				        <Route exact path="/Speaker" render={() => <Speaker emit={this.emit} {...this.state} /> } />
 				        <Route exact path="/Board" render={() => <Board headerTitle={this.state.title} connectedStatus={this.state.connectedStatus} /> } />
 				        <Redirect from="/*" to="/Audience" />
