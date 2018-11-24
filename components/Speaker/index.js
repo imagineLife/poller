@@ -6,7 +6,7 @@ import ShowThis from '../ShowThis'
 import AttendanceNote from '../AttendanceNote'
 import QuestionList from '../QuestionList'
 
-let Speaker = (props) => {
+export default function Speaker(props){
 	console.log("speaker props")
 	console.log(props)
 	return (
@@ -28,7 +28,5 @@ let Speaker = (props) => {
 			</ShowThis>
 		</React.Fragment>
 
-	);
-}
-  
-export default Speaker;
+	)
+};
